@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - The Automated Job Hunter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">🚀 Job Hunter AI</div>
+        <div class="nav-links">
+            <a href="/">Generate</a>
+            <a href="/dashboard" class="active">Dashboard</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1>Your Cover Letters</h1>
+        <p style="color: var(--text-muted); margin-bottom: 2rem;">A record of every position you've applied to.</p>
+
+        <div class="grid">
+            <div class="card">
+                <h3>Google</h3>
+                <a href="https://careers.google.com" target="_blank" class="job-link">View Job Posting ↗</a>
+                <p class="preview">I am writing to express my profound interest in joining Google as a Backend
+                    Developer...</p>
+            </div>
+
+            <div class="card">
+                <h3>OpenAI</h3>
+                <a href="#" class="job-link">View Job Posting ↗</a>
+                <p class="preview">As a passionate Python Developer, I was thrilled to see the opening at OpenAI...</p>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

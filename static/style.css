@@ -1,0 +1,169 @@
+:root {
+    --primary: #4F46E5;
+    --primary-hover: #4338CA;
+    --bg: #F8FAFC;
+    --surface: #FFFFFF;
+    --text: #0F172A;
+    --text-muted: #64748B;
+    --border: #E2E8F0;
+    --radius: 12px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+.navbar {
+    background: var(--surface);
+    padding: 1rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--primary);
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    margin-left: 2rem;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--primary);
+}
+
+.container {
+    max-width: 800px;
+    margin: 4rem auto;
+    padding: 0 1.5rem;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.hero p {
+    color: var(--text-muted);
+    font-size: 1.125rem;
+}
+
+.generator-form {
+    background: var(--surface);
+    padding: 2.5rem;
+    border-radius: var(--radius);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 0.875rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+}
+
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.card {
+    background: var(--surface);
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+
+.card h3 {
+    margin-bottom: 0.25rem;
+    color: var(--text);
+}
+
+.job-link {
+    display: inline-block;
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.preview {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

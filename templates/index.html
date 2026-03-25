@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Automated Job Hunter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">🚀 Job Hunter AI</div>
+        <div class="nav-links">
+            <a href="/" class="active">Generate</a>
+            <a href="/dashboard">Dashboard</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="hero">
+            <h1>Create Perfect Cover Letters</h1>
+            <p>Paste a job description URL and let AI write the perfect pitch.</p>
+        </div>
+
+        <form class="generator-form" action="/generate" method="POST">
+            <div class="form-group">
+                <label for="company_name">Company Name</label>
+                <input type="text" id="company_name" name="company_name" placeholder="e.g. Google" required>
+            </div>
+
+            <div class="form-group">
+                <label for="job_url">Job Description URL</label>
+                <input type="url" id="job_url" name="job_url" placeholder="https://careers.google.com/..." required>
+            </div>
+
+            <button type="submit" class="btn-primary">Generate Cover Letter</button>
+        </form>
+    </main>
+</body>
+
+</html>
