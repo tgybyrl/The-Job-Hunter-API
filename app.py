@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import os
 
@@ -33,8 +33,16 @@ class Application(db.Model):
 
 # --- ROUTES ---
 @app.route("/")
-def hello_world():
-    return "Hello World!"
+def index():
+    # Displays our home page form instead of "Hello World"
+    return render_template("index.html")
+
+@app.route("/dashboard")
+def dashboard():
+    # Fetches all saved cover letters from our DB (newest first)
+    applications = Application.query.order_by(Application.id.desc()).all()
+    # Sends that data to be rendered by Jinja2 in dashboard.html
+    return render_template("dashboard.html", applications=applications)
 
 @app.route("/generate", methods=["POST"])
 def generate():
@@ -66,13 +74,8 @@ def generate():
     db.session.add(new_application) # Stages the save
     db.session.commit()             # Permanently saves it to job_hunter.db
 
-    # 5. Return a JSON success response (Later, our Frontend will receive this)
-    return jsonify({
-        "message": "Success!",
-        "id": new_application.id,
-        "company": new_application.company_name,
-        "cover_letter_preview": new_application.cover_letter_text[:150] + "..."
-    })
+    # 5. We are now seamlessly redirecting the user to the visual dashboard!
+    return redirect(url_for("dashboard"))
 
 if __name__ == "__main__":
     # Create the database tables before running the app

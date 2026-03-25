@@ -23,20 +23,48 @@
         <p style="color: var(--text-muted); margin-bottom: 2rem;">A record of every position you've applied to.</p>
 
         <div class="grid">
+            {% for app in applications %}
             <div class="card">
-                <h3>Google</h3>
-                <a href="https://careers.google.com" target="_blank" class="job-link">View Job Posting ↗</a>
-                <p class="preview">I am writing to express my profound interest in joining Google as a Backend
-                    Developer...</p>
-            </div>
+                <h3>{{ app.company_name }}</h3>
+                <a href="{{ app.job_url }}" target="_blank" class="job-link">View Job Posting ↗</a>
 
-            <div class="card">
-                <h3>OpenAI</h3>
-                <a href="#" class="job-link">View Job Posting ↗</a>
-                <p class="preview">As a passionate Python Developer, I was thrilled to see the opening at OpenAI...</p>
+                <div class="card-actions" style="margin-bottom: 1rem;">
+                    <button type="button" class="btn-secondary" onclick="toggleVisibility('content-{{ app.id }}')">�️
+                        Show/Hide Letter</button>
+                </div>
+
+                <div id="content-{{ app.id }}">
+                    <button type="button" class="btn-secondary" style="margin-bottom: 0.5rem;"
+                        onclick="copyText('text-{{ app.id }}')">� Copy Letter</button>
+                    <p class="preview" id="text-{{ app.id }}">{{ app.cover_letter_text }}</p>
+                </div>
             </div>
+            {% else %}
+            <p style="color: var(--text-muted); padding: 2rem; grid-column: 1 / -1;">No cover letters generated yet. Go
+                back to the homepage to create one!</p>
+            {% endfor %}
         </div>
     </main>
+
+    <script>
+        function copyText(elementId) {
+            const textToCopy = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                alert("Cover letter successfully copied to clipboard!");
+            }).catch(err => {
+                console.error("Failed to copy text: ", err);
+            });
+        }
+
+        function toggleVisibility(elementId) {
+            const element = document.getElementById(elementId);
+            if (element.style.display === "none") {
+                element.style.display = "block";
+            } else {
+                element.style.display = "none";
+            }
+        }
+    </script>
 </body>
 
 </html>
