@@ -1,6 +1,10 @@
-from flask import Flask
+from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import os
+
+# Import our custom helper functions
+from scraper import scrape_job_description
+from ai_helper import generate_cover_letter
 
 app = Flask(__name__)
 
@@ -31,6 +35,44 @@ class Application(db.Model):
 @app.route("/")
 def hello_world():
     return "Hello World!"
+
+@app.route("/generate", methods=["POST"])
+def generate():
+    """
+    This is the core logic of our app! It runs when a user submits the form.
+    It expects 'company_name' and 'job_url' via a POST request.
+    """
+    # 1. Grab the data submitted by the user
+    company_name = request.form.get("company_name")
+    job_url = request.form.get("job_url")
+
+    if not company_name or not job_url:
+        return jsonify({"error": "Missing company_name or job_url"}), 400
+
+    # 2. Call our Scraper Utility
+    print(f"Scraping URL: {job_url}...")
+    scraped_text = scrape_job_description(job_url)
+    
+    # 3. Pass the scraped text to our AI Utility
+    print(f"Generating letter for: {company_name}...")
+    cover_letter = generate_cover_letter(company_name, scraped_text)
+
+    # 4. Save the generated cover letter to our Database
+    new_application = Application(
+        company_name=company_name,
+        job_url=job_url,
+        cover_letter_text=cover_letter
+    )
+    db.session.add(new_application) # Stages the save
+    db.session.commit()             # Permanently saves it to job_hunter.db
+
+    # 5. Return a JSON success response (Later, our Frontend will receive this)
+    return jsonify({
+        "message": "Success!",
+        "id": new_application.id,
+        "company": new_application.company_name,
+        "cover_letter_preview": new_application.cover_letter_text[:150] + "..."
+    })
 
 if __name__ == "__main__":
     # Create the database tables before running the app
