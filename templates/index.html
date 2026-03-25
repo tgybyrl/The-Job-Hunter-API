@@ -24,6 +24,13 @@
             <p>Paste a job description URL and let AI write the perfect pitch.</p>
         </div>
 
+        {% if error %}
+        <!-- Friendly Error Message Box! -->
+        <div style="background-color: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; text-align: center; font-weight: 500;">
+            ⚠️ {{ error }}
+        </div>
+        {% endif %}
+
         <form class="generator-form" action="/generate" method="POST">
             <div class="form-group">
                 <label for="company_name">Company Name</label>

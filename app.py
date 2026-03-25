@@ -61,9 +61,18 @@ def generate():
     print(f"Scraping URL: {job_url}...")
     scraped_text = scrape_job_description(job_url)
     
+    # NEW: Safety Check 1 - If the scraper failed (e.g. 403 LinkedIn block, or bad URL)
+    if not scraped_text or scraped_text.startswith("Error"):
+        detailed_error = "Could not read that URL. Websites like LinkedIn often block automated bots. Please try a different public link!"
+        return render_template("index.html", error=detailed_error)
+
     # 3. Pass the scraped text to our AI Utility
     print(f"Generating letter for: {company_name}...")
     cover_letter = generate_cover_letter(company_name, scraped_text)
+    
+    # NEW: Safety Check 2 - If the AI Generation failed
+    if not cover_letter or cover_letter.startswith("Error"):
+        return render_template("index.html", error="AI generation failed. Please check your API key.")
 
     # 4. Save the generated cover letter to our Database
     new_application = Application(
