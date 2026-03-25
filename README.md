@@ -53,8 +53,3 @@ GEMINI_API_KEY=your_actual_api_key_here
 python app.py
 ```
 Open your web browser and navigate to `http://127.0.0.1:5000` to start hunting!
-
-## 📸 Project Gallery
-*(Add a screenshot of your beautiful dashboard here later!)*
-
----
