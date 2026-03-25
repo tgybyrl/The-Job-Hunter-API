@@ -77,6 +77,19 @@ def generate():
     # 5. We are now seamlessly redirecting the user to the visual dashboard!
     return redirect(url_for("dashboard"))
 
+@app.route("/delete/<int:id>", methods=["POST"])
+def delete_application(id):
+    """
+    Finds a specific cover letter in the database by ID and deletes it perfectly.
+    """
+    app_to_delete = Application.query.get_or_404(id)
+    try:
+        db.session.delete(app_to_delete)
+        db.session.commit()
+        return redirect(url_for('dashboard'))
+    except Exception as e:
+        return f"There was a problem deleting that record: {e}"
+
 if __name__ == "__main__":
     # Create the database tables before running the app
     with app.app_context():

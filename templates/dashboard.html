@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,10 +7,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
     <nav class="navbar">
-        <div class="logo">🚀 Job Hunter AI</div>
+        <div class="logo">Job Hunter AI</div>
         <div class="nav-links">
             <a href="/">Generate</a>
             <a href="/dashboard" class="active">Dashboard</a>
@@ -21,27 +19,28 @@
     <main class="container">
         <h1>Your Cover Letters</h1>
         <p style="color: var(--text-muted); margin-bottom: 2rem;">A record of every position you've applied to.</p>
-
+        
         <div class="grid">
             {% for app in applications %}
             <div class="card">
                 <h3>{{ app.company_name }}</h3>
-                <a href="{{ app.job_url }}" target="_blank" class="job-link">View Job Posting ↗</a>
-
-                <div class="card-actions" style="margin-bottom: 1rem;">
-                    <button type="button" class="btn-secondary" onclick="toggleVisibility('content-{{ app.id }}')">�️
-                        Show/Hide Letter</button>
+                <a href="{{ app.job_url }}" target="_blank" class="job-link">View Job Posting</a>
+                
+                <div class="card-actions" style="margin-bottom: 1rem; display: flex; gap: 0.5rem;">
+                    <button type="button" class="btn-secondary" onclick="toggleVisibility('content-{{ app.id }}')">Show / Hide Letter</button>
+                    <!-- A simple form to POST a request to our new /delete route -->
+                    <form action="/delete/{{ app.id }}" method="POST" onsubmit="return confirm('Are you sure you want to permanently delete this letter?');">
+                        <button type="submit" class="btn-secondary" style="color: #dc2626; border-color: #fca5a5; background: #fef2f2;">Delete</button>
+                    </form>
                 </div>
 
                 <div id="content-{{ app.id }}">
-                    <button type="button" class="btn-secondary" style="margin-bottom: 0.5rem;"
-                        onclick="copyText('text-{{ app.id }}')">� Copy Letter</button>
+                    <button type="button" class="btn-secondary" style="margin-bottom: 0.5rem;" onclick="copyText('text-{{ app.id }}')">Copy to Clipboard</button>
                     <p class="preview" id="text-{{ app.id }}">{{ app.cover_letter_text }}</p>
                 </div>
             </div>
             {% else %}
-            <p style="color: var(--text-muted); padding: 2rem; grid-column: 1 / -1;">No cover letters generated yet. Go
-                back to the homepage to create one!</p>
+            <p style="color: var(--text-muted); padding: 2rem; grid-column: 1 / -1;">No cover letters generated yet. Go back to the homepage to create one!</p>
             {% endfor %}
         </div>
     </main>
@@ -66,5 +65,4 @@
         }
     </script>
 </body>
-
 </html>
